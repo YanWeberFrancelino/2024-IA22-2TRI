@@ -160,17 +160,43 @@ sudo apt update
 sudo apt install code
 ```
 
-### Alternativa
+### Alternativa: Usando o GitHub Codespaces
 
-: Usando o GitHub Codespaces
+GitHub Codespaces é uma poderosa ferramenta que permite configurar um ambiente de desenvolvimento na nuvem de maneira rápida e eficiente. Ele oferece um ambiente completo baseado em contêineres, proporcionando uma experiência de desenvolvimento consistente, independentemente de onde você esteja trabalhando. A seguir, vamos explorar como configurar o GitHub Codespaces, desde a criação de uma conta no GitHub até a abertura de um Codespace em um repositório.
 
-GitHub Codespaces é uma excelente alternativa para configurar um ambiente de desenvolvimento rapidamente na nuvem. Ele oferece um ambiente de desenvolvimento completo baseado em contêineres, permitindo que você trabalhe de qualquer lugar.
+#### 1. **Criar uma Conta no GitHub**
 
-#### Configurando um Codespace
+Se você ainda não tem uma conta no GitHub, o primeiro passo é criar uma:
 
-1. Vá até o repositório GitHub desejado.
-2. Clique em "Code" e selecione "Open with Codespaces".
-3. O ambiente será configurado automaticamente e estará pronto para uso em poucos minutos.
+1. **Acesse o [site do GitHub](https://github.com/)**.
+2. **Clique em "Sign up"** no canto superior direito.
+3. **Preencha as informações** solicitadas: nome de usuário, endereço de e-mail e senha.
+4. **Siga as instruções** na tela para verificar sua conta e completar o cadastro.
+
+#### 2. **Criar um Repositório no GitHub**
+
+Após criar sua conta, você precisará de um repositório para trabalhar com o Codespaces:
+
+1. **Faça login** na sua conta do GitHub.
+2. **Clique no ícone "+"** no canto superior direito e selecione "New repository".
+3. **Preencha as informações do repositório**:
+   - **Nome do repositório**: Escolha um nome único para o seu projeto.
+   - **Descrição**: Opcional, mas recomendável para explicar o propósito do repositório.
+   - **Privacidade**: Escolha entre "Public" (público) ou "Private" (privado).
+   - **Inicializar o repositório**: Marque a opção "Add a README file" para inicializar o repositório com um arquivo README básico.
+4. **Clique em "Create repository"**.
+
+Agora, você tem um repositório GitHub pronto para ser usado com Codespaces.
+
+#### 3. **Configurando um Codespace**
+
+Com o repositório criado, você está pronto para configurar um Codespace:
+
+1. **Navegue até o repositório** que você acabou de criar.
+2. **Clique no botão "Code"** localizado na parte superior direita da página do repositório.
+3. No menu suspenso, você verá a opção **"Open with Codespaces"**. Se esta opção não aparecer, certifique-se de que sua conta GitHub tem acesso ao GitHub Codespaces.
+4. **Clique em "New Codespace"**. Isso iniciará o processo de configuração do seu Codespace.
+   - O GitHub automaticamente prepara um contêiner com todas as ferramentas necessárias para o desenvolvimento do seu projeto. Isso inclui o editor Visual Studio Code na web, com todas as extensões e configurações que você possa precisar.
 
 ## Iniciando um Projeto Node.js com TypeScript
 
