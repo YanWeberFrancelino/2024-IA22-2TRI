@@ -160,9 +160,7 @@ sudo apt update
 sudo apt install code
 ```
 
-### Alternativa
-
-: Usando o GitHub Codespaces
+### Alternativa: Usando o GitHub Codespaces
 
 GitHub Codespaces é uma poderosa ferramenta que permite configurar um ambiente de desenvolvimento na nuvem de maneira rápida e eficiente. Ele oferece um ambiente completo baseado em contêineres, proporcionando uma experiência de desenvolvimento consistente, independentemente de onde você esteja trabalhando. A seguir, vamos explorar como configurar o GitHub Codespaces, desde a criação de uma conta no GitHub até a abertura de um Codespace em um repositório.
 
