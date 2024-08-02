@@ -1,4 +1,4 @@
-# Guia Extensivo para Criar um Servidor Express com Node.js e TypeScript
+# Guia para Criar um Servidor Express com Node.js e TypeScript
 
 Bem-vindo a este guia completo e detalhado para a criação de um servidor usando Node.js, Express e TypeScript. Este documento foi feito para ser acessível a todos, mesmo aqueles que nunca tiveram contato com essas tecnologias. Vamos abordar desde conceitos básicos até a implementação de um servidor funcional com banco de dados, incluindo dicas de resolução de problemas e referências para estudos adicionais. O guia está dividido em diversas seções para facilitar a compreensão, independentemente do seu nível de experiência.
 
