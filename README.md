@@ -1,6 +1,6 @@
 # Guia para Criar um Servidor Express com Node.js e TypeScript
 
-Bem-vindo a este guia completo e detalhado para a criação de um servidor usando Node.js, Express e TypeScript. Este documento foi feito para ser acessível a todos, mesmo aqueles que nunca tiveram contato com essas tecnologias. Vamos abordar desde conceitos básicos até a implementação de um servidor funcional com banco de dados, incluindo dicas de resolução de problemas e referências para estudos adicionais. O guia está dividido em diversas seções para facilitar a compreensão, independentemente do seu nível de experiência.
+Bem-vindo a este guia completo para a criação de um servidor usando Node.js, Express e TypeScript. Este documento foi feito para ser acessível a todos, mesmo aqueles que nunca tiveram contato com essas tecnologias. Vamos abordar desde conceitos básicos até a implementação de um servidor funcional com banco de dados, incluindo dicas de resolução de problemas e referências para estudos adicionais. O guia está dividido em diversas seções para facilitar a compreensão, independentemente do seu nível de experiência.
 
 ## Sumário
 
@@ -123,7 +123,9 @@ npm -v
 
 Isso deve retornar as versões do Node.js e do npm.
 
-#### Passo 2: Instalando o Git
+#### Passo 
+
+2: Instalando o Git
 
 O Git geralmente está disponível nos repositórios padrão. Em distribuições baseadas em Debian/Ubuntu, instale-o com:
 
@@ -322,7 +324,9 @@ Isso cria um arquivo `tsconfig.json`. Nele, precisamos configurar algumas opçõ
 ### Explicando as Configurações:
 - **target**: Especifica a versão do ECMAScript que o código será compilado (ES2017).
 - **module**: Define o sistema de módulos (CommonJS).
-- **outDir**: Especifica o diretório de saída dos arquivos compilados.
+- **outDir**: Especifica o diretório de saída dos arquivos
+
+ compilados.
 - **rootDir**: Define o diretório de origem dos arquivos TypeScript.
 - **strict**: Habilita várias opções que garantem uma verificação mais rigorosa do código.
 - **esModuleInterop**: Garante a interoperabilidade com módulos ES.
@@ -350,9 +354,7 @@ Agora que as dependências estão instaladas e o TypeScript configurado, vamos c
 No diretório `src`, crie um arquivo chamado `app.ts`:
 
 - **Windows**:
-  - Execute o seguinte comando no CMD ou PowerShell para
-
- criar o arquivo:
+  - Execute o seguinte comando no CMD ou PowerShell para criar o arquivo:
     ```bash
     mkdir src
     New-Item src/app.ts
@@ -609,7 +611,9 @@ app.delete('/users/:id', async (req, res) => {
 - **app.delete('/users/:id', async (req, res) => {...})**: Define uma rota DELETE para remover um usuário específico.
 - **await db.run('DELETE FROM users WHERE id = ?', [id])**: Deleta o usuário com o ID especificado.
 
-## Como Ler e Interpretar Logs de Erros
+## Como Ler
+
+ e Interpretar Logs de Erros
 
 Erros são inevitáveis ao desenvolver software, e saber como ler e interpretar os logs de erro é uma habilidade essencial. Abaixo, vamos abordar alguns dos erros mais comuns que você pode encontrar ao trabalhar com Node.js, Express e TypeScript, e como solucioná-los.
 
@@ -628,9 +632,7 @@ Erros são inevitáveis ao desenvolver software, e saber como ler e interpretar 
 
 2. **No Linux**:
    - Verifique se o Node.js está instalado e se o caminho do Node.js está no PATH.
-   - Adicione
-
- o caminho do Node.js ao PATH no arquivo `.bashrc` ou `.zshrc`:
+   - Adicione o caminho do Node.js ao PATH no arquivo `.bashrc` ou `.zshrc`:
      ```bash
      export PATH=$PATH:/caminho/para/nodejs
      ```
