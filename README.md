@@ -41,7 +41,17 @@ Digite `code .` no terminal ou pesquise por "Visual Studio Code" na barra de pes
 ### Criando o diretório do projeto
 
 1. Na área de trabalho, crie uma pasta para o seu projeto. Exemplo: `node-typescript-crud`.
-2. Abra o Visual Studio Code e, no menu, clique em **File > Open Folder** e selecione a pasta criada.
+   - **Nota para usuários Linux:** Se você não conseguir criar a pasta na área de trabalho via interface gráfica, pode usar o terminal. Para garantir que funcione independentemente do idioma do sistema, use o comando abaixo para criar a pasta na área de trabalho:
+     ```bash
+     mkdir ~/$(xdg-user-dir DESKTOP)/node-typescript-crud
+     ```
+   Esse comando funciona em distribuições Linux que seguem a especificação XDG (como Ubuntu e Fedora) e criará a pasta na área de trabalho, independentemente do idioma.
+
+2. Abra o Visual Studio Code. Você pode abrir a pasta criada de duas maneiras:
+   - Clique em **File > Open Folder** e selecione a pasta criada.
+   - Ou use o atalho `Ctrl + K, Ctrl + O` para abrir a janela de seleção de pastas e escolha a pasta criada.
+
+[IMAGEM]
 
 ### Criando os arquivos iniciais
 
@@ -271,6 +281,8 @@ Vamos agora criar uma interface HTML para interagir com a API.
 ### Testando a interface HTML
 
 1. Certifique-se de que o servidor está rodando (`npm run dev`).
+
+
 2. No seu navegador, abra `http://localhost:3333` para acessar a interface.
 3. Utilize o formulário para adicionar usuários e veja os dados serem exibidos na tabela abaixo.
 
@@ -303,9 +315,7 @@ node-typescript-crud/
 
 ### Instalando a extensão REST Client
 
-1. No Visual Studio Code, abra a barra lateral de extensões clicando no ícone de
-
- extensões ou utilizando o atalho `Ctrl + Shift + X`.
+1. No Visual Studio Code, abra a barra lateral de extensões clicando no ícone de extensões ou utilizando o atalho `Ctrl + Shift + X`.
 2. Na barra de pesquisa, digite **REST Client**.
 3. Instale a extensão **REST Client** da **Huachao Mao**.
 
