@@ -1,3 +1,5 @@
+---
+
 # Projeto Node.js com TypeScript - CRUD de Usuários
 
 Este guia irá ajudá-lo a configurar e executar um projeto Node.js com TypeScript, criando um servidor Express com um CRUD básico de usuários utilizando um banco de dados SQLite.
@@ -32,7 +34,7 @@ Se o Node.js não estiver instalado, [clique aqui para baixar e instalar](https:
 
 ### Verificando a instalação do Visual Studio Code
 
-Digite `code .` no terminal. Se o Visual Studio Code abrir, significa que ele já está instalado. Caso contrário, você pode baixar o Visual Studio Code [aqui](https://code.visualstudio.com/).
+Digite `code .` no terminal ou pesquise por "Visual Studio Code" na barra de pesquisa do sistema operacional. Se o Visual Studio Code abrir, significa que ele já está instalado. Caso contrário, você pode baixar o Visual Studio Code [aqui](https://code.visualstudio.com/).
 
 ## 2. Configurando o Ambiente de Desenvolvimento
 
@@ -292,9 +294,7 @@ node-typescript-crud/
 ├── package.json
 ├── package-lock.json
 ├── tsconfig.json
-└──
-
- README.md
+└── README.md
 ```
 
 [IMAGEM]
@@ -303,7 +303,9 @@ node-typescript-crud/
 
 ### Instalando a extensão REST Client
 
-1. No Visual Studio Code, abra a barra lateral de extensões clicando no ícone de extensões ou utilizando o atalho `Ctrl + Shift + X`.
+1. No Visual Studio Code, abra a barra lateral de extensões clicando no ícone de
+
+ extensões ou utilizando o atalho `Ctrl + Shift + X`.
 2. Na barra de pesquisa, digite **REST Client**.
 3. Instale a extensão **REST Client** da **Huachao Mao**.
 
@@ -343,3 +345,5 @@ DELETE http://localhost:3333/users/1 HTTP/1.1
 [IMAGEM]
 
 Se tudo estiver configurado corretamente, você verá as respostas JSON adequadas para cada requisição.
+
+---
