@@ -63,7 +63,7 @@ Digite `code .` no terminal ou pesquise por "Visual Studio Code" na barra de pes
 
 **Nota:** Futuramente quando estiver acrescentando nos arquivos os códigos, para salvar arquivos e atualizar os códigos existentes, use o atalho `Ctrl + S` enquanto estiver editando o arquivo.
 
-![Como Criar Pastas e Arquivos](img/criar_arquivos_pastas.png)
+![Como Criar Pastas e Arquivos](img/criar_arquivos.png)
 
 **Nota:** Confira seu projeto no VS Code e veja se a estrutura de arquivos e pastas e está como na imagem a seguir.
 
