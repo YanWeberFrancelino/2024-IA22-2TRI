@@ -71,11 +71,23 @@ Digite `code .` no terminal ou pesquise por "Visual Studio Code" na barra de pes
 
 ## 3. Iniciando o Projeto Node.js
 
-No terminal integrado do Visual Studio Code (`Ctrl + '`), execute os seguintes comandos para iniciar o projeto Node.js:
+Para iniciar o projeto, você precisará abrir o terminal integrado no Visual Studio Code. Você pode fazer isso de duas maneiras:
+
+1. **Usando o atalho de teclado**: Pressione `Ctrl + '` para abrir o terminal integrado.
+
+2. **Abrindo manualmente**: Você pode abrir o terminal manualmente clicando em **View > Terminal** na barra de menus superior.
+
+![Como Abrir Terminal](img/terminal.png)
+
+Depois de abrir o terminal, execute os seguintes comandos para iniciar o projeto Node.js:
 
 ```bash
 npm init -y
 ```
+
+---
+
+Com essa estrutura, você pode inserir a imagem que mostra o usuário abrindo o terminal manualmente através do menu do Visual Studio Code, junto com as instruções sobre como fazer isso usando o atalho de teclado. Isso torna o guia mais acessível para diferentes tipos de usuários.
 
 Instale as dependências necessárias:
 
@@ -86,9 +98,13 @@ npm install --save-dev typescript nodemon ts-node @types/express @types/cors
 
 ### Aviso Importante:
 
-Após a execução dos comandos acima, será criada uma pasta chamada `node_modules` e o arquivo `package-lock.json` no diretório do seu projeto. A pasta `node_modules` contém todos os pacotes e dependências instaladas, e o arquivo `package-lock.json` ajuda a gerenciar as versões dessas dependências.
+Após a execução dos comandos acima, será criada uma pasta chamada `node_modules` e um arquivo chamado `package-lock.json` no diretório do seu projeto. A pasta `node_modules` contém todos os pacotes e dependências instaladas, e o arquivo `package-lock.json` ajuda a gerenciar as versões dessas dependências.
 
-[IMAGEM]
+Se você encontrar algum erro ao executar esses comandos no terminal, consulte o Capítulo 10 onde são abordados erros comuns e como resolvê-los.
+
+A seguir, veja uma imagem que demonstra como deve ficar a estrutura dos seus diretórios após a execução desses comandos:
+
+![Conferir Estrutura](img/estrutura2.png)
 
 ## 4. Configurando o TypeScript
 
