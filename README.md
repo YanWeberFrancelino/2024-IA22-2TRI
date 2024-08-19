@@ -106,26 +106,41 @@ A seguir, veja uma imagem que demonstra como deve ficar a estrutura dos seus dir
 
 ## 4. Configurando o TypeScript
 
-Para configurar o TypeScript, execute o seguinte comando:
+Para configurar o TypeScript no seu projeto, siga os passos abaixo:
 
-```bash
-npx tsc --init
-```
+1. Abra o terminal integrado no Visual Studio Code.
+2. Execute o seguinte comando para inicializar o TypeScript no projeto:
 
-No arquivo `tsconfig.json`, altere as seguintes linhas:
+   ```bash
+   npx tsc --init
+   ```
 
-```json
-{
-  "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "./src"
-  }
-}
-```
+3. Após executar o comando acima, um arquivo chamado `tsconfig.json` será gerado no diretório do seu projeto. Agora, você precisa substituir o conteúdo desse arquivo com a configuração adequada:
 
-Isso configurará o TypeScript para compilar os arquivos TypeScript da pasta `src` para a pasta `dist`.
+   - **Abra o arquivo `tsconfig.json`** no Visual Studio Code.
+   - **Pressione `Ctrl + A`** para selecionar todo o conteúdo do arquivo.
+   - **Pressione `Backspace`** para apagar o conteúdo selecionado.
+   - **Pressione `Ctrl + V`** para colar o código abaixo:
 
-[IMAGEM]
+   ```json
+   {
+     "compilerOptions": {
+       "target": "es2016",
+       "module": "commonjs",
+       "outDir": "./dist",
+       "rootDir": "./src",
+       "esModuleInterop": true,
+       "forceConsistentCasingInFileNames": true,
+       "strict": true,
+       "skipLibCheck": true
+     }
+   }
+   ```
+
+4. Pressione Ctrl + S para salvar as alterações feitas no arquivo tsconfig.json.
+5. Após fazer essas alterações, o TypeScript estará configurado para compilar os arquivos da pasta `src` e colocar os arquivos JavaScript resultantes na pasta `dist`. A seguir, veja uma imagem que demonstra como deve ficar o código e a estrutura dos seus diretórios após as alterações feitas.
+
+![Conferir Estrutura](img/estrutura3.png)
 
 ## 5. Configurando o Servidor Express
 
