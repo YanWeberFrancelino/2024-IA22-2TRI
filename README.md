@@ -1,373 +1,103 @@
-# Guia para Criar um Servidor Express com Node.js e TypeScript
+# Projeto Node.js com TypeScript - CRUD de Usuários
 
-Bem-vindo a este guia completo para a criação de um servidor usando Node.js, Express e TypeScript. Este documento foi feito para ser acessível a todos, mesmo aqueles que nunca tiveram contato com essas tecnologias. Vamos abordar desde conceitos básicos até a implementação de um servidor funcional com banco de dados, incluindo dicas de resolução de problemas e referências para estudos adicionais. O guia está dividido em diversas seções para facilitar a compreensão, independentemente do seu nível de experiência.
+Este guia irá ajudá-lo a configurar e executar um projeto Node.js com TypeScript, criando um servidor Express com um CRUD básico de usuários utilizando um banco de dados SQLite.
 
 ## Sumário
 
-1. [Introdução](#introdução)
-2. [O que é Node.js?](#o-que-é-nodejs)
-3. [O que é Express?](#o-que-é-express)
-4. [O que é TypeScript?](#o-que-é-typescript)
-5. [Preparando o Ambiente de Desenvolvimento](#preparando-o-ambiente-de-desenvolvimento)
-   - [Instalação no Windows](#instalação-no-windows)
-   - [Instalação no Linux](#instalação-no-linux)
-   - [Instalando o Visual Studio Code](#instalando-o-visual-studio-code)
-   - [Alternativa: Usando o GitHub Codespaces](#alternativa-usando-o-github-codespaces)
-6. [Iniciando um Projeto Node.js com TypeScript](#iniciando-um-projeto-nodejs-com-typescript)
-   - [Criando o Diretório do Projeto](#criando-o-diretório-do-projeto)
-   - [Inicializando o Projeto com npm](#inicializando-o-projeto-com-npm)
-   - [Instalando Dependências](#instalando-dependências)
-   - [Configurando o TypeScript](#configurando-o-typescript)
-   - [Configurando Scripts no `package.json`](#configurando-scripts-no-packagejson)
-7. [Criando o Servidor Express](#criando-o-servidor-express)
-   - [Criando o Arquivo Inicial do Servidor](#criando-o-arquivo-inicial-do-servidor)
-   - [Inicializando o Servidor](#inicializando-o-servidor)
-   - [Testando o Servidor](#testando-o-servidor)
-8. [Configurando o Banco de Dados](#configurando-o-banco-de-dados)
-   - [Criando a Conexão com o Banco de Dados](#criando-a-conexão-com-o-banco-de-dados)
-   - [Adicionando o Banco de Dados ao Servidor](#adicionando-o-banco-de-dados-ao-servidor)
-9. [Implementando Rotas de CRUD](#implementando-rotas-de-crud)
-   - [Inserindo Dados](#inserindo-dados)
-   - [Listando Usuários](#listando-usuários)
-   - [Editando Usuários](#editando-usuários)
-   - [Deletando Usuários](#deletando-usuários)
-10. [Como Ler e Interpretar Logs de Erros](#como-ler-e-interpretar-logs-de-erros)
-    - [Erros Comuns e Como Corrigi-los](#erros-comuns-e-como-corrigi-los)
-        - [Erro de PATH Não Reconhecido](#erro-de-path-não-reconhecido)
-        - [Erro de Biblioteca Não Instalada](#erro-de-biblioteca-não-instalada)
-        - [Outros Erros Comuns](#outros-erros-comuns)
-    - [Recursos e Ferramentas para Resolução de Problemas](#recursos-e-ferramentas-para-resolução-de-problemas)
-        - [Sites Úteis para Pesquisar Erros](#sites-úteis-para-pesquisar-erros)
-        - [Inteligências Artificiais para Suporte](#inteligências-artificiais-para-suporte)
-11. [Conclusão e Próximos Passos](#conclusão-e-próximos-passos)
+1. [Pré-requisitos](#pré-requisitos)
+2. [Configurando o Ambiente de Desenvolvimento](#configurando-o-ambiente-de-desenvolvimento)
+3. [Iniciando o Projeto Node.js](#iniciando-o-projeto-nodejs)
+4. [Configurando o TypeScript](#configurando-o-typescript)
+5. [Configurando o Servidor Express](#configurando-o-servidor-express)
+6. [Configurando o Banco de Dados SQLite](#configurando-o-banco-de-dados-sqlite)
+7. [Criando a Interface HTML](#criando-a-interface-html)
+8. [Estrutura de Pastas](#estrutura-de-pastas)
+9. [Testando o Projeto](#testando-o-projeto)
 
 ---
 
-## Introdução
+## 1. Pré-requisitos
 
-Este guia foi projetado para ser um recurso abrangente, levando-o do absoluto zero até a construção de um servidor funcional usando Node.js, Express e TypeScript. Vamos começar com conceitos básicos para garantir que você entenda cada parte do processo. Depois, você aprenderá como configurar o ambiente de desenvolvimento em diferentes sistemas operacionais, incluindo Windows e Linux, além de uma alternativa na nuvem com o GitHub Codespaces.
+Antes de iniciar, certifique-se de que você possui o Node.js e o Visual Studio Code instalados em seu sistema.
 
-## O que é Node.js?
+### Verificando a instalação do Node.js
 
-Node.js é um ambiente de execução JavaScript que permite a execução de código JavaScript fora do navegador, no lado do servidor. Desenvolvido originalmente em 2009, Node.js utiliza o motor V8 do Chrome, que é responsável pela execução rápida do JavaScript.
-
-### Principais Características do Node.js:
-- **Non-blocking I/O**: Node.js opera de forma assíncrona e orientada a eventos, permitindo que ele lide com um grande número de conexões simultâneas de forma eficiente.
-- **Unificado com JavaScript**: A mesma linguagem usada para o frontend pode ser utilizada no backend, permitindo uma integração perfeita entre as duas camadas.
-- **Ecossistema Rico**: O npm (Node Package Manager) oferece milhões de pacotes de código aberto que podem ser integrados ao seu projeto com facilidade.
-
-## O que é Express?
-
-Express é um framework minimalista para Node.js, que facilita o desenvolvimento de servidores web e APIs. Ele abstrai grande parte da complexidade envolvida na manipulação de requisições e respostas HTTP, permitindo que você se concentre na lógica do aplicativo.
-
-### Por que usar Express?
-- **Facilidade de Uso**: A API do Express é simples e direta, tornando o desenvolvimento rápido e intuitivo.
-- **Flexível**: Express permite a criação de servidores robustos, desde simples sites estáticos até APIs RESTful complexas.
-- **Desempenho**: É leve e otimizado para alta performance, sem sacrificar a simplicidade.
-
-## O que é TypeScript?
-
-TypeScript é um superconjunto de JavaScript que adiciona tipagem estática e outras funcionalidades modernas ao idioma. Criado pela Microsoft, TypeScript transpila para JavaScript puro, permitindo que você escreva código mais seguro e fácil de manter.
-
-### Vantagens do TypeScript:
-- **Tipagem Estática**: Ajuda a evitar erros comuns de tempo de execução, detectando-os durante o desenvolvimento.
-- **Melhor Integração com IDEs**: A tipagem estática melhora a completude de código, refatoração e outras ferramentas de IDE.
-- **Compatível com JavaScript**: Todo código JavaScript é válido em TypeScript, facilitando a migração gradual.
-
-## Preparando o Ambiente de Desenvolvimento
-
-Antes de começar a codificar, precisamos configurar o ambiente de desenvolvimento. A seguir, veremos como preparar o ambiente tanto no Windows quanto no Linux, além de uma alternativa utilizando GitHub Codespaces.
-
-### Instalação no Windows
-
-#### Passo 1: Instalando Node.js
-
-1. Acesse o [site oficial do Node.js](https://nodejs.org/).
-2. Baixe o instalador para Windows.
-3. Execute o instalador e siga as instruções. Durante a instalação, marque a opção para adicionar o Node.js ao PATH.
-
-Após a instalação, verifique se o Node.js e o npm foram instalados corretamente abrindo o Prompt de Comando e digitando:
+Abra o CMD no Windows ou o Terminal no Linux e digite:
 
 ```bash
 node -v
-npm -v
 ```
 
-Isso deve retornar as versões instaladas do Node.js e do npm.
+Se o Node.js não estiver instalado, [clique aqui para baixar e instalar](https://nodejs.org/).
 
-#### Passo 2: Instalando o Git
+### Verificando a instalação do Visual Studio Code
 
-Para trabalhar com repositórios Git, é recomendável instalar o Git para Windows.
+Digite `code .` no terminal. Se o Visual Studio Code abrir, significa que ele já está instalado. Caso contrário, você pode baixar o Visual Studio Code [aqui](https://code.visualstudio.com/).
 
-1. Acesse o [site oficial do Git](https://git-scm.com/).
-2. Baixe o instalador para Windows.
-3. Execute o instalador e siga as instruções. Durante a instalação, marque a opção para adicionar o Git ao PATH.
+## 2. Configurando o Ambiente de Desenvolvimento
 
-### Instalação no Linux
+### Criando o diretório do projeto
 
-#### Passo 1: Instalando Node.js
+1. Na área de trabalho, crie uma pasta para o seu projeto. Exemplo: `node-typescript-crud`.
+2. Abra o Visual Studio Code e, no menu, clique em **File > Open Folder** e selecione a pasta criada.
 
-Em distribuições baseadas em Debian/Ubuntu, você pode instalar o Node.js utilizando o seguinte comando:
+### Criando os arquivos iniciais
 
-```bash
-sudo apt update
-sudo apt install nodejs npm
-```
+1. No Visual Studio Code, crie uma pasta chamada `src` dentro do seu projeto.
+2. Dentro da pasta `src`, crie dois arquivos: `app.ts` e `database.ts`.
+3. Crie também uma pasta chamada `public` na raiz do projeto. Dentro dela, crie um arquivo chamado `index.html`.
 
-Verifique a instalação com:
+**Nota:** Para criar um novo arquivo ou pasta, clique com o botão direito na área de trabalho do Visual Studio Code ou use o atalho `Ctrl + N` e depois `Ctrl + S` para salvar.
 
-```bash
-node -v
-npm -v
-```
+[IMAGEM]
 
-Isso deve retornar as versões do Node.js e do npm.
+## 3. Iniciando o Projeto Node.js
 
-#### Passo 
-
-2: Instalando o Git
-
-O Git geralmente está disponível nos repositórios padrão. Em distribuições baseadas em Debian/Ubuntu, instale-o com:
-
-```bash
-sudo apt install git
-```
-
-Verifique a instalação com:
-
-```bash
-git --version
-```
-
-### Instalando o Visual Studio Code
-
-Visual Studio Code (VS Code) é um editor de código-fonte popular, disponível para Windows, macOS e Linux. Vamos instalá-lo em ambos os sistemas operacionais.
-
-#### Instalação no Windows
-
-1. Acesse o [site oficial do Visual Studio Code](https://code.visualstudio.com/).
-2. Baixe o instalador para Windows.
-3. Execute o instalador e siga as instruções.
-
-#### Instalação no Linux
-
-Para distribuições baseadas em Debian/Ubuntu, você pode instalar o VS Code com os seguintes comandos:
-
-```bash
-sudo apt update
-sudo apt install software-properties-common apt-transport-https wget
-wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-sudo apt update
-sudo apt install code
-```
-
-### Alternativa: Usando o GitHub Codespaces
-
-GitHub Codespaces é uma poderosa ferramenta que permite configurar um ambiente de desenvolvimento na nuvem de maneira rápida e eficiente. Ele oferece um ambiente completo baseado em contêineres, proporcionando uma experiência de desenvolvimento consistente, independentemente de onde você esteja trabalhando. A seguir, vamos explorar como configurar o GitHub Codespaces, desde a criação de uma conta no GitHub até a abertura de um Codespace em um repositório.
-
-#### 1. **Criar uma Conta no GitHub**
-
-Se você ainda não tem uma conta no GitHub, o primeiro passo é criar uma:
-
-1. **Acesse o [site do GitHub](https://github.com/)**.
-2. **Clique em "Sign up"** no canto superior direito.
-3. **Preencha as informações** solicitadas: nome de usuário, endereço de e-mail e senha.
-4. **Siga as instruções** na tela para verificar sua conta e completar o cadastro.
-
-#### 2. **Criar um Repositório no GitHub**
-
-Após criar sua conta, você precisará de um repositório para trabalhar com o Codespaces:
-
-1. **Faça login** na sua conta do GitHub.
-2. **Clique no ícone "+"** no canto superior direito e selecione "New repository".
-3. **Preencha as informações do repositório**:
-   - **Nome do repositório**: Escolha um nome único para o seu projeto.
-   - **Descrição**: Opcional, mas recomendável para explicar o propósito do repositório.
-   - **Privacidade**: Escolha entre "Public" (público) ou "Private" (privado).
-   - **Inicializar o repositório**: Marque a opção "Add a README file" para inicializar o repositório com um arquivo README básico.
-4. **Clique em "Create repository"**.
-
-Agora, você tem um repositório GitHub pronto para ser usado com Codespaces.
-
-#### 3. **Configurando um Codespace**
-
-Com o repositório criado, você está pronto para configurar um Codespace:
-
-1. **Navegue até o repositório** que você acabou de criar.
-2. **Clique no botão "Code"** localizado na parte superior direita da página do repositório.
-3. No menu suspenso, você verá a opção **"Open with Codespaces"**. Se esta opção não aparecer, certifique-se de que sua conta GitHub tem acesso ao GitHub Codespaces.
-4. **Clique em "New Codespace"**. Isso iniciará o processo de configuração do seu Codespace.
-   - O GitHub automaticamente prepara um contêiner com todas as ferramentas necessárias para o desenvolvimento do seu projeto. Isso inclui o editor Visual Studio Code na web, com todas as extensões e configurações que você possa precisar.
-
-#### 4. **Personalizando o Codespace**
-
-Depois que o Codespace estiver configurado, você pode personalizar o ambiente:
-
-- **Instalar Extensões**: Como o Codespace usa o Visual Studio Code, você pode instalar extensões diretamente do marketplace, da mesma forma que faria localmente.
-- **Configurações Específicas do Projeto**: Se o seu projeto requer uma configuração específica, você pode definir isso usando um arquivo `.devcontainer` no repositório. Esse arquivo permite configurar o ambiente de desenvolvimento de maneira detalhada, incluindo a instalação de pacotes, configuração do sistema operacional no contêiner, variáveis de ambiente, etc.
-
-#### 5. **Trabalhando no Codespace**
-
-Com o Codespace pronto, você pode começar a codificar:
-
-- **Editor de Código**: O editor no Codespace é uma versão completa do Visual Studio Code, com suporte para todas as funcionalidades que você esperaria de um IDE moderno.
-- **Terminal Integrado**: Acesse o terminal integrado para executar comandos, instalar pacotes, rodar scripts, entre outros.
-- **Git Integrado**: Você pode fazer commits, criar branches, e realizar pull requests diretamente no Codespace.
-
-#### 6. **Salvando e Encerrando o Codespace**
-
-Quando terminar de trabalhar, o Codespace salva automaticamente seu progresso. Você pode encerrar a sessão sem perder o trabalho:
-
-- **Salvar Progresso**: Como o Codespace está integrado ao Git, certifique-se de fazer commit das suas mudanças antes de encerrar a sessão.
-- **Encerrando o Codespace**: Feche a aba do navegador, ou vá até o menu do Codespace e selecione "Stop Codespace". Isso suspende o contêiner, economizando recursos.
-
-#### 7. **Reabrindo um Codespace**
-
-Na próxima vez que você quiser continuar trabalhando:
-
-1. **Vá até o repositório GitHub**.
-2. **Clique em "Code"** e selecione o Codespace previamente criado.
-3. **Clique para reabrir** e você estará de volta ao ambiente exatamente como deixou.
-
-#### 8. **Benefícios de Usar GitHub Codespaces**
-
-- **Consistência**: Tenha um ambiente de desenvolvimento consistente, independentemente da máquina que estiver usando.
-- **Mobilidade**: Trabalhe de qualquer lugar, sem a necessidade de configurar ambientes complexos em diferentes dispositivos.
-- **Facilidade de Configuração**: Configuração inicial rápida e automática, permitindo que você se concentre no desenvolvimento do seu projeto imediatamente.
-- **Colaboração**: Facilita a colaboração entre equipes, pois todos podem trabalhar no mesmo ambiente configurado.
-
-GitHub Codespaces é uma solução prática e poderosa para desenvolvedores que buscam flexibilidade e eficiência no desenvolvimento de software, especialmente em equipes distribuídas ou para projetos que exigem configurações complexas.
-
-## Iniciando um Projeto Node.js com TypeScript
-
-Com o ambiente configurado, vamos iniciar o projeto.
-
-### Criando o Diretório do Projeto
-
-No terminal (Prompt de Comando no Windows ou Terminal no Linux), crie um novo diretório para o projeto e acesse-o.
-
-- **Windows**:
-  - Abra o Prompt de Comando (CMD) ou o PowerShell e execute os comandos abaixo:
-    ```bash
-    mkdir meu-projeto-node
-    cd meu-projeto-node
-    ```
-
-- **Linux**:
-  - Abra o Terminal e execute os comandos abaixo:
-    ```bash
-    mkdir meu-projeto-node
-    cd meu-projeto-node
-    ```
-
-### Inicializando o Projeto com npm
-
-Dentro do diretório do projeto, inicialize um novo projeto Node.js com o comando:
+No terminal integrado do Visual Studio Code (`Ctrl + '`), execute os seguintes comandos para iniciar o projeto Node.js:
 
 ```bash
 npm init -y
 ```
 
-Este comando cria um arquivo `package.json` com as configurações básicas do projeto.
-
-### Instalando Dependências
-
-Vamos instalar as bibliotecas necessárias para o projeto.
+Instale as dependências necessárias:
 
 ```bash
-npm install express cors sqlite3
-```
-
-Essas são as dependências principais:
-- **express**: O framework para criar o servidor.
-- **cors**: Middleware para habilitar CORS (Cross-Origin Resource Sharing).
-- **sqlite3**: Biblioteca para manipular o banco de dados SQLite.
-
-Em seguida, instale as dependências de desenvolvimento:
-
-```bash
+npm install express cors sqlite3 sqlite
 npm install --save-dev typescript nodemon ts-node @types/express @types/cors
 ```
 
-Essas são as dependências de desenvolvimento:
-- **typescript**: Adiciona suporte a TypeScript.
-- **nodemon**: Reinicia automaticamente o servidor ao detectar mudanças no código.
-- **ts-node**: Permite executar código TypeScript diretamente.
-- **@types/express e @types/cors**: Pacotes que adicionam suporte a TypeScript para Express e CORS.
+### Aviso Importante:
 
-### Configurando o TypeScript
+Após a execução dos comandos acima, será criada uma pasta chamada `node_modules` e o arquivo `package-lock.json` no diretório do seu projeto. A pasta `node_modules` contém todos os pacotes e dependências instaladas, e o arquivo `package-lock.json` ajuda a gerenciar as versões dessas dependências.
 
-Vamos configurar o TypeScript no projeto. Execute o comando abaixo para gerar o arquivo de configuração:
+[IMAGEM]
+
+## 4. Configurando o TypeScript
+
+Para configurar o TypeScript, execute o seguinte comando:
 
 ```bash
 npx tsc --init
 ```
 
-Isso cria um arquivo `tsconfig.json`. Nele, precisamos configurar algumas opções:
+No arquivo `tsconfig.json`, altere as seguintes linhas:
 
 ```json
 {
   "compilerOptions": {
-    "target": "ES2017",
-    "module": "commonjs",
     "outDir": "./dist",
-    "rootDir": "./src",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "rootDir": "./src"
   }
 }
 ```
 
-### Explicando as Configurações:
-- **target**: Especifica a versão do ECMAScript que o código será compilado (ES2017).
-- **module**: Define o sistema de módulos (CommonJS).
-- **outDir**: Especifica o diretório de saída dos arquivos
+Isso configurará o TypeScript para compilar os arquivos TypeScript da pasta `src` para a pasta `dist`.
 
- compilados.
-- **rootDir**: Define o diretório de origem dos arquivos TypeScript.
-- **strict**: Habilita várias opções que garantem uma verificação mais rigorosa do código.
-- **esModuleInterop**: Garante a interoperabilidade com módulos ES.
-- **skipLibCheck**: Ignora a verificação de tipos nos arquivos de declaração de biblioteca.
-- **forceConsistentCasingInFileNames**: Garante a consistência de letras maiúsculas e minúsculas nos nomes de arquivos.
+[IMAGEM]
 
-### Configurando Scripts no `package.json`
+## 5. Configurando o Servidor Express
 
-Adicione o seguinte script ao seu `package.json` para facilitar a execução do servidor:
-
-```json
-"scripts": {
-  "dev": "nodemon src/app.ts"
-}
-```
-
-Esse script permite que você inicie o servidor em modo de desenvolvimento, onde o Nodemon reinicia o servidor sempre que detecta mudanças nos arquivos.
-
-## Criando o Servidor Express
-
-Agora que as dependências estão instaladas e o TypeScript configurado, vamos criar o servidor.
-
-### Criando o Arquivo Inicial do Servidor
-
-No diretório `src`, crie um arquivo chamado `app.ts`:
-
-- **Windows**:
-  - Execute o seguinte comando no CMD ou PowerShell para criar o arquivo:
-    ```bash
-    mkdir src
-    New-Item src/app.ts
-    ```
-
-- **Linux**:
-  - Execute o seguinte comando no Terminal para criar o arquivo:
-    ```bash
-    mkdir src
-    touch src/app.ts
-    ```
-
-Adicione o seguinte código ao arquivo `app.ts`:
+No arquivo `src/app.ts`, adicione o código a seguir para configurar o servidor:
 
 ```typescript
 import express from 'express';
@@ -378,6 +108,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static(__dirname + '/../public'));  // Servindo o HTML
 
 app.get('/', (req, res) => {
   res.send('Hello World');
@@ -388,55 +119,13 @@ app.listen(port, () => {
 });
 ```
 
-### Explicando o Código:
+## 6. Configurando o Banco de Dados SQLite
 
-- **import express from 'express'**: Importa o módulo Express para criar o servidor.
-- **import cors from 'cors'**: Importa o middleware CORS para permitir requisições de diferentes origens.
-- **const app = express()**: Inicializa o aplicativo Express.
-- **app.use(cors())**: Aplica o middleware CORS a todas as rotas.
-- **app.use(express.json())**: Permite que o servidor processe requisições com JSON.
-- **app.get('/')**: Cria uma rota GET na raiz (`/`) que retorna "Hello World".
-- **app.listen(port, ...)**: Inicia o servidor na porta especificada.
+Antes de criar a conexão com o banco de dados, execute o arquivo `database.ts` após configurar o banco de dados SQLite.
 
-### Inicializando o Servidor
+### Criando o arquivo de banco de dados
 
-Para iniciar o servidor, execute o seguinte comando:
-
-```bash
-npm run dev
-```
-
-Se tudo estiver configurado corretamente, você verá a mensagem:
-
-```bash
-Server running on port 3333
-```
-
-### Testando o Servidor
-
-Abra o navegador e acesse `http://localhost:3333`. Se tudo estiver funcionando, você verá a mensagem "Hello World".
-
-## Configurando o Banco de Dados
-
-Para armazenar dados de maneira persistente, vamos configurar um banco de dados SQLite.
-
-### Criando a Conexão com o Banco de Dados
-
-Crie um arquivo chamado `database.ts` dentro do diretório `src`:
-
-- **Windows**:
-  - Execute o seguinte comando no CMD ou PowerShell:
-    ```bash
-    New-Item src/database.ts
-    ```
-
-- **Linux**:
-  - Execute o seguinte comando no Terminal:
-    ```bash
-    touch src/database.ts
-    ```
-
-Adicione o seguinte código ao arquivo:
+No arquivo `src/database.ts`, adicione o seguinte código para configurar o banco de dados SQLite:
 
 ```typescript
 import { open, Database } from 'sqlite';
@@ -445,7 +134,7 @@ import sqlite3 from 'sqlite3';
 let instance: Database | null = null;
 
 export async function connect() {
-  if (instance) return instance;
+  if (instance !== null) return instance;
 
   const db = await open({
      filename: './src/database.sqlite',
@@ -465,214 +154,192 @@ export async function connect() {
 }
 ```
 
-### Explicando o Código:
+Certifique-se de que o banco de dados esteja sendo corretamente acessado ao rodar o servidor.
 
-- **import { open, Database } from 'sqlite'**: Importa as funções necessárias para abrir o banco de dados SQLite.
-- **let instance: Database | null = null**: Armazena uma instância do banco de dados para evitar múltiplas conexões.
-- **async function connect()**: Função que se conecta ao banco de dados e cria a tabela `users` se ela não existir.
-- **CREATE TABLE IF NOT EXISTS users...**: SQL que cria a tabela de usuários com colunas para `id`, `name` e `email`.
+## 7. Criando a Interface HTML
 
-### Adicionando o Banco de Dados ao Servidor
+Vamos agora criar uma interface HTML para interagir com a API.
 
-Vamos agora integrar o banco de dados ao nosso servidor. No arquivo `app.ts`, atualize o código para incluir as operações de banco de dados:
+### Criando o arquivo HTML
 
-```typescript
-import express from 'express';
-import cors from 'cors';
-import { connect } from './database';
+1. Dentro da pasta `public`, no arquivo `index.html`, adicione o seguinte código HTML:
 
-const port = 3333;
-const app = express();
+```html
+<!DOCTYPE html>
+<html lang="en">
 
-app.use(cors());
-app.use(express.json());
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD de Usuários</title>
+</head>
 
-app.get('/', (req, res) => {
-  res.send('Hello World');
-});
+<body>
+  <form>
+    <input type="text" name="name" placeholder="Nome" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <button type="submit">Cadastrar</button>
+  </form>
 
-app.post('/users', async (req, res) => {
-  const db = await connect();
-  const { name, email } = req.body;
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Os dados serão inseridos aqui -->
+    </tbody>
+  </table>
 
-  const result = await db.run('INSERT INTO users (name, email) VALUES (?, ?)', [name, email]);
-  const user = await db.get('SELECT * FROM users WHERE id = ?', [result.lastID]);
+  <script>
+    const form = document.querySelector('form')
 
-  res.json(user);
-});
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault()
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+      const name = form.name.value
+      const email = form.email.value
+
+      await fetch('/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email })
+      })
+
+      form.reset()
+      fetchData()
+    })
+
+    const tbody = document.querySelector('tbody')
+
+    async function fetchData() {
+      const resp = await fetch('/users')
+      const data = await resp.json()
+
+      tbody.innerHTML = ''
+
+      data.forEach(user => {
+        const tr = document.createElement('tr')
+        tr.innerHTML = `
+          <td>${user.id}</td>
+          <td>${user.name}</td>
+          <td>${user.email}</td>
+          <td>
+            <button class="excluir">Excluir</button>
+            <button class="editar">Editar</button>
+          </td>
+        `
+
+        const btExcluir = tr.querySelector('button.excluir')
+        const btEditar = tr.querySelector('button.editar')
+
+        btExcluir.addEventListener('click', async () => {
+          await fetch(`/users/${user.id}`, { method: 'DELETE' })
+          tr.remove()
+        })
+
+        btEditar.addEventListener('click', async () => {
+          const name = prompt('Novo nome:', user.name)
+          const email = prompt('Novo email:', user.email)
+
+          await fetch(`/users/${user.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email })
+          })
+
+          fetchData()
+        })
+
+        tbody.appendChild(tr)
+      })
+    }
+
+    fetchData()
+  </script>
+</body>
+
+</html>
 ```
 
-### Explicando o Código:
+### Testando a interface HTML
 
-- **app.post('/users', async (req, res) => {...})**: Define uma rota POST para adicionar novos usuários.
-- **const db = await connect()**: Conecta ao banco de dados.
-- **await db.run('INSERT INTO users (name, email)...')**: Insere um novo usuário na tabela.
-- **const user = await db.get('SELECT * FROM users WHERE id = ?', [result.lastID])**: Recupera o usuário recém-inserido.
+1. Certifique-se de que o servidor está rodando (`npm run dev`).
+2. No seu navegador, abra `http://localhost:3333` para acessar a interface.
+3. Utilize o formulário para adicionar usuários e veja os dados serem exibidos na tabela abaixo.
 
-## Implementando Rotas de CRUD
+A interface permite adicionar, editar e excluir usuários diretamente do navegador, interagindo com a API que você configurou.
 
-Agora que nosso servidor está conectado ao banco de dados, vamos criar rotas para inserir, listar, editar e deletar usuários.
+## 8. Estrutura de Pastas
 
-### Inserindo Dados
+A estrutura final de pastas do seu projeto deve ficar assim:
 
-Já temos a rota para inserir dados no banco (`/users`), mas vamos explicá-la em mais detalhes.
+```plaintext
+node-typescript-crud/
+│
+├── node_modules/
+│   └── ...
+├── public/
+│   └── index.html
+├── src/
+│   ├── app.ts
+│   └── database.ts
+├── .gitignore
+├── package.json
+├── package-lock.json
+├── tsconfig.json
+└──
 
-#### Testando a Inserção de Dados
+ README.md
+```
 
-Você pode usar o Postman ou qualquer outra ferramenta de API para testar a inserção de dados.
+[IMAGEM]
 
-1. Abra o Postman e crie uma nova requisição POST para `http://localhost:3333/users`.
-2. No corpo da requisição, insira o seguinte JSON:
+## 9. Testando o Projeto
 
-```json
+### Instalando a extensão REST Client
+
+1. No Visual Studio Code, abra a barra lateral de extensões clicando no ícone de extensões ou utilizando o atalho `Ctrl + Shift + X`.
+2. Na barra de pesquisa, digite **REST Client**.
+3. Instale a extensão **REST Client** da **Huachao Mao**.
+
+[IMAGEM]
+
+### Testando as rotas
+
+1. Crie um arquivo chamado `test.http` na raiz do seu projeto.
+2. No arquivo `test.http`, adicione o seguinte código para testar as rotas de CRUD de usuários:
+
+```http
+POST http://localhost:3333/users HTTP/1.1
+content-type: application/json
+
 {
   "name": "John Doe",
   "email": "johndoe@mail.com"
 }
-```
 
-3. Clique em "Enviar". Se tudo correr bem, você verá a resposta com os dados do usuário inserido:
+####
 
-```json
+PUT http://localhost:3333/users/1 HTTP/1.1
+content-type: application/json
+
 {
-  "id": 1,
-  "name": "John Doe",
+  "name": "John Doe Updated",
   "email": "johndoe@mail.com"
 }
+
+####
+
+DELETE http://localhost:3333/users/1 HTTP/1.1
 ```
 
-### Listando Usuários
+3. Para testar as rotas, clique no botão **Send Request** que aparecerá acima de cada bloco de código no Visual Studio Code.
 
-Vamos criar uma rota para listar todos os usuários cadastrados.
+[IMAGEM]
 
-No arquivo `app.ts`, adicione a seguinte rota:
-
-```typescript
-app.get('/users', async (req, res) => {
-  const db = await connect();
-  const users = await db.all('SELECT * FROM users');
-
-  res.json(users);
-});
-```
-
-#### Explicando o Código:
-
-- **app.get('/users', async (req, res) => {...})**: Define uma rota GET para listar todos os usuários.
-- **const users = await db.all('SELECT * FROM users')**: Recupera todos os usuários do banco de dados.
-
-### Editando Usuários
-
-Para editar um usuário, vamos criar uma rota PUT que atualiza os dados de um usuário específico.
-
-No arquivo `app.ts`, adicione a seguinte rota:
-
-```typescript
-app.put('/users/:id', async (req, res) => {
-  const db = await connect();
-  const { name, email } = req.body;
-  const { id } = req.params;
-
-  await db.run('UPDATE users SET name = ?, email = ? WHERE id = ?', [name, email, id]);
-  const user = await db.get('SELECT * FROM users WHERE id = ?', [id]);
-
-  res.json(user);
-});
-```
-
-#### Explicando o Código:
-
-- **app.put('/users/:id', async (req, res) => {...})**: Define uma rota PUT para atualizar um usuário específico.
-- **await db.run('UPDATE users SET name = ?, email = ? WHERE id = ?', [...])**: Atualiza o nome e o email do usuário com o ID especificado.
-
-### Deletando Usuários
-
-Finalmente, vamos criar uma rota DELETE para remover um usuário do banco de dados.
-
-No arquivo `app.ts`, adicione a seguinte rota:
-
-```typescript
-app.delete('/users/:id', async (req, res) => {
-  const db = await connect();
-  const { id } = req.params;
-
-  await db.run('DELETE FROM users WHERE id = ?', [id]);
-
-  res.json({ message: 'User deleted' });
-});
-```
-
-#### Explicando o Código:
-
-- **app.delete('/users/:id', async (req, res) => {...})**: Define uma rota DELETE para remover um usuário específico.
-- **await db.run('DELETE FROM users WHERE id = ?', [id])**: Deleta o usuário com o ID especificado.
-
-## Como Ler
-
- e Interpretar Logs de Erros
-
-Erros são inevitáveis ao desenvolver software, e saber como ler e interpretar os logs de erro é uma habilidade essencial. Abaixo, vamos abordar alguns dos erros mais comuns que você pode encontrar ao trabalhar com Node.js, Express e TypeScript, e como solucioná-los.
-
-### Erros Comuns e Como Corrigi-los
-
-#### Erro de PATH Não Reconhecido
-
-**Descrição**: Esse erro geralmente ocorre quando você tenta executar um comando e o terminal retorna uma mensagem como "command not found" ou "não é reconhecido como um comando interno ou externo".
-
-**Causa**: Isso acontece porque o terminal não consegue encontrar o executável do comando, normalmente porque o diretório onde o executável está localizado não está incluído na variável de ambiente `PATH`.
-
-**Solução**:
-1. **No Windows**:
-   - Verifique se o Node.js está instalado corretamente e se foi incluído no PATH durante a instalação.
-   - Abra as "Configurações do Sistema" > "Variáveis de Ambiente" e adicione o caminho do Node.js à variável `PATH`.
-
-2. **No Linux**:
-   - Verifique se o Node.js está instalado e se o caminho do Node.js está no PATH.
-   - Adicione o caminho do Node.js ao PATH no arquivo `.bashrc` ou `.zshrc`:
-     ```bash
-     export PATH=$PATH:/caminho/para/nodejs
-     ```
-   - Execute `source ~/.bashrc` para aplicar as mudanças.
-
-#### Erro de Biblioteca Não Instalada
-
-**Descrição**: Erro como "Cannot find module 'express'" ou "Módulo não encontrado".
-
-**Causa**: Esse erro ocorre quando você tenta importar uma biblioteca que não está instalada.
-
-**Solução**:
-- Verifique se a biblioteca foi instalada usando `npm install` no diretório do projeto.
-- Se a biblioteca for uma dependência de desenvolvimento, certifique-se de usar a flag `--save-dev` ao instalá-la.
-- Verifique se o diretório `node_modules` existe e contém a biblioteca em questão.
-
-#### Outros Erros Comuns
-
-- **SyntaxError**: Erros de sintaxe podem ocorrer por causa de erros de digitação ou formatação incorreta. Revise o código para encontrar e corrigir a sintaxe incorreta.
-- **TypeError**: Esse erro ocorre quando você tenta realizar uma operação em um valor do tipo errado, como chamar uma função em uma variável que não é uma função.
-- **UnhandledPromiseRejectionWarning**: Este erro aparece quando uma promessa (Promise) é rejeitada sem tratamento. Certifique-se de usar `try/catch` ou `catch` para capturar erros de promessas.
-
-### Recursos e Ferramentas para Resolução de Problemas
-
-Se você encontrar um erro e não souber como resolvê-lo, existem diversos recursos online e ferramentas que podem ajudá-lo.
-
-#### Sites Úteis para Pesquisar Erros
-
-1. **[Stack Overflow](https://stackoverflow.com/)**: Um dos maiores repositórios de perguntas e respostas sobre programação. Pesquise pelo erro específico que você está enfrentando; é provável que alguém já tenha encontrado e resolvido o mesmo problema.
-2. **[GitHub Issues](https://github.com/issues)**: Se você estiver usando uma biblioteca de código aberto, consulte as issues no repositório do GitHub. Muitas vezes, erros conhecidos já foram relatados e possivelmente solucionados.
-3. **[MDN Web Docs](https://developer.mozilla.org/)**: Documentação extensa sobre JavaScript e tecnologias relacionadas. Pode ser útil para entender melhor erros específicos de JavaScript.
-
-#### Inteligências Artificiais para Suporte
-
-1. **[ChatGPT](https://openai.com/chatgpt)**: Desenvolvido pela OpenAI, ChatGPT pode ajudar a explicar conceitos, sugerir soluções para problemas de código e fornecer exemplos de código.
-2. **[Claude](https://claude.ai/)**: Uma IA da Anthropic, Claude é útil para consultas de código, correções, e é destacada nos benchmarks por suas excelentes capacidades em programação, oferecendo explicações técnicas e auxílio em problemas de programação.
-3. **[Gemini](https://gemini.google.com/)**: Desenvolvido pelo Google, Gemini é uma IA que pode ser usada para suporte técnico em programação e outras tarefas técnicas.
-
-Essas IAs são ferramentas poderosas que podem acelerar a resolução de problemas, oferecendo suporte personalizado e respostas rápidas para suas dúvidas.
-
-## Conclusão e Próximos Passos
-
-Parabéns! Você criou um servidor completo utilizando Node.js, Express e TypeScript, com suporte a um banco de dados SQLite e funcionalidades básicas de CRUD. Este guia cobriu desde a configuração do ambiente até a implementação de funcionalidades mais avançadas, garantindo que você tenha uma compreensão sólida dos conceitos fundamentais.
+Se tudo estiver configurado corretamente, você verá as respostas JSON adequadas para cada requisição.
