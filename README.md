@@ -79,7 +79,7 @@ Para iniciar o projeto, você precisará abrir o terminal integrado no Visual St
 
 ![Como Abrir Terminal](img/terminal.png)
 
-Depois de abrir o terminal, execute os seguintes comandos para iniciar o projeto Node.js:
+Depois de abrir o terminal, copie o comando a seguir clicando no ícone de cópia no canto superior direito do bloco de código (ícone de dois quadrados sobrepostos). Em seguida, cole o comando no terminal e pressione Enter para executá-lo. Este comando irá niciar o projeto Node.js:
 
 ```bash
 npm init -y
