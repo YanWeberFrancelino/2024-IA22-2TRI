@@ -40,18 +40,20 @@ Digite `code .` no terminal ou pesquise por "Visual Studio Code" na barra de pes
 
 ### Criando o diretório do projeto
 
-1. Na área de trabalho, crie uma pasta para o seu projeto. Exemplo: `node-typescript-crud`.
-   - **Nota para usuários Linux:** Se você não conseguir criar a pasta na área de trabalho via interface gráfica, pode usar o terminal. Para garantir que funcione independentemente do idioma do sistema, use o comando abaixo para criar a pasta na área de trabalho:
+1. **No Windows ou Mac**: Na área de trabalho, clique com o botão direito do mouse, selecione **Nova Pasta** e nomeie-a como `node-typescript-crud`.
+   
+   **No Linux**:
+   - Se você puder criar a pasta na área de trabalho via interface gráfica, clique com o botão direito do mouse, selecione **Nova Pasta** e nomeie-a como `node-typescript-crud`.
+   - **Se você não conseguir criar a pasta na área de trabalho via interface gráfica**: Use o terminal para garantir que funcione independentemente do idioma do sistema. Execute o seguinte comando para criar a pasta na área de trabalho:
      ```bash
      mkdir ~/$(xdg-user-dir DESKTOP)/node-typescript-crud
      ```
-   Esse comando funciona em distribuições Linux que seguem a especificação XDG (como Ubuntu e Fedora) e criará a pasta na área de trabalho, independentemente do idioma.
 
 2. Abra o Visual Studio Code. Você pode abrir a pasta criada de duas maneiras:
    - Clique em **File > Open Folder** e selecione a pasta criada.
-   - Ou use o atalho `Ctrl + K, Ctrl + O` para abrir a janela de seleção de pastas e escolha a pasta criada.
+   - Ou use o atalho `Ctrl + K + O` para abrir a janela de seleção de pastas e escolha a pasta criada.
 
-[IMAGEM]
+![Como Abrir A Pasta](img/abrir_pasta.png)
 
 ### Criando os arquivos iniciais
 
