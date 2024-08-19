@@ -87,8 +87,6 @@ npm init -y
 
 ---
 
-Com essa estrutura, você pode inserir a imagem que mostra o usuário abrindo o terminal manualmente através do menu do Visual Studio Code, junto com as instruções sobre como fazer isso usando o atalho de teclado. Isso torna o guia mais acessível para diferentes tipos de usuários.
-
 Instale as dependências necessárias:
 
 ```bash
