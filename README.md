@@ -65,6 +65,10 @@ Digite `code .` no terminal ou pesquise por "Visual Studio Code" na barra de pes
 
 ![Como Criar Pastas e Arquivos](img/criar_arquivos_pastas.png)
 
+**Nota:** Confira seu projeto no VS Code e veja se a estrutura de arquivos e pastas e está como na imagem a seguir.
+
+![Conferir Estrutura](img/estrutura.png)
+
 ## 3. Iniciando o Projeto Node.js
 
 No terminal integrado do Visual Studio Code (`Ctrl + '`), execute os seguintes comandos para iniciar o projeto Node.js:
