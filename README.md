@@ -61,7 +61,7 @@ Digite `code .` no terminal ou pesquise por "Visual Studio Code" na barra de pes
 2. Dentro da pasta `src`, crie dois arquivos: `app.ts` e `database.ts`.
 3. Crie também uma pasta chamada `public` na raiz do projeto. Dentro dela, crie um arquivo chamado `index.html`.
 
-**Nota:** Para salvar arquivos e atualizar o código existente, use o atalho `Ctrl + S` enquanto estiver editando o arquivo.
+**Nota:** Futuramente quando estiver acrescentando nos arquivos os códigos, para salvar arquivos e atualizar os códigos existentes, use o atalho `Ctrl + S` enquanto estiver editando o arquivo.
 
 ![Como Criar Pastas e Arquivos](img/criar_arquivos_pastas.png)
 
