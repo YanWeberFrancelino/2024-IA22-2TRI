@@ -1,5 +1,3 @@
----
-
 # Projeto Node.js com TypeScript - CRUD de Usuários
 
 Este guia irá ajudá-lo a configurar e executar um projeto Node.js com TypeScript, criando um servidor Express com um CRUD básico de usuários utilizando um banco de dados SQLite.
@@ -12,9 +10,11 @@ Este guia irá ajudá-lo a configurar e executar um projeto Node.js com TypeScri
 4. [Configurando o TypeScript](#configurando-o-typescript)
 5. [Configurando o Servidor Express](#configurando-o-servidor-express)
 6. [Configurando o Banco de Dados SQLite](#configurando-o-banco-de-dados-sqlite)
-7. [Criando a Interface HTML](#criando-a-interface-html)
-8. [Estrutura de Pastas](#estrutura-de-pastas)
-9. [Testando o Projeto](#testando-o-projeto)
+7. [Rodando o Servidor](#rodando-o-servidor)
+8. [Criando a Interface HTML](#criando-a-interface-html)
+9. [Estrutura de Pastas](#estrutura-de-pastas)
+10. [Testando o Projeto](#testando-o-projeto)
+11. [Tratando Erros Comuns](#tratando-erros-comuns)
 
 ---
 
@@ -61,11 +61,11 @@ Digite `code .` no terminal ou pesquise por "Visual Studio Code" na barra de pes
 2. Dentro da pasta `src`, crie dois arquivos: `app.ts` e `database.ts`.
 3. Crie também uma pasta chamada `public` na raiz do projeto. Dentro dela, crie um arquivo chamado `index.html`.
 
-**Nota:** Futuramente quando estiver acrescentando nos arquivos os códigos, para salvar arquivos e atualizar os códigos existentes, use o atalho `Ctrl + S` enquanto estiver editando o arquivo.
+**Nota:** Futuramente, quando estiver acrescentando códigos nos arquivos, para salvar e atualizar os códigos existentes, use o atalho `Ctrl + S` enquanto estiver editando o arquivo.
 
 ![Como Criar Pastas e Arquivos](img/criar_arquivos.png)
 
-**Nota:** Confira seu projeto no VS Code e veja se a estrutura de arquivos e pastas e está como na imagem a seguir.
+**Nota:** Confira seu projeto no VS Code e veja se a estrutura de arquivos e pastas está como na imagem a seguir.
 
 ![Conferir Estrutura](img/estrutura.png)
 
@@ -79,7 +79,7 @@ Para iniciar o projeto, você precisará abrir o terminal integrado no Visual St
 
 ![Como Abrir Terminal](img/terminal.png)
 
-Depois de abrir o terminal, copie o comando a seguir clicando no ícone de cópia no canto superior direito do bloco de código (ícone de dois quadrados sobrepostos). Em seguida, cole o comando no terminal e pressione Enter para executá-lo. Este comando irá niciar o projeto Node.js:
+Depois de abrir o terminal, copie o comando a seguir clicando no ícone de cópia no canto superior direito do bloco de código (ícone de dois quadrados sobrepostos). Em seguida, cole o comando no terminal e pressione Enter para executá-lo. Este comando irá iniciar o projeto Node.js:
 
 ```bash
 npm init -y
@@ -98,7 +98,7 @@ npm install --save-dev typescript nodemon ts-node @types/express @types/cors
 
 Após a execução dos comandos acima, será criada uma pasta chamada `node_modules` e um arquivo chamado `package-lock.json` no diretório do seu projeto. A pasta `node_modules` contém todos os pacotes e dependências instaladas, e o arquivo `package-lock.json` ajuda a gerenciar as versões dessas dependências.
 
-Se você encontrar algum erro ao executar esses comandos no terminal, consulte o Capítulo 10 onde são abordados erros comuns e como resolvê-los.
+Se você encontrar algum erro ao executar esses comandos no terminal, consulte o Capítulo 11, onde são abordados erros comuns e como resolvê-los.
 
 A seguir, veja uma imagem que demonstra como deve ficar a estrutura dos seus diretórios após a execução desses comandos:
 
@@ -122,6 +122,7 @@ Para configurar o TypeScript no seu projeto, siga os passos abaixo:
    - **Pressione `Backspace`** para apagar o conteúdo selecionado.
    - **Pressione `Ctrl + V`** para colar o código abaixo:
 
+
    ```json
    {
      "compilerOptions": {
@@ -137,42 +138,97 @@ Para configurar o TypeScript no seu projeto, siga os passos abaixo:
    }
    ```
 
-4. Pressione Ctrl + S para salvar as alterações feitas no arquivo tsconfig.json.
+4. Pressione Ctrl + S para salvar as alterações feitas no arquivo `tsconfig.json`.
 5. Após fazer essas alterações, o TypeScript estará configurado para compilar os arquivos da pasta `src` e colocar os arquivos JavaScript resultantes na pasta `dist`. A seguir, veja uma imagem que demonstra como deve ficar o código e a estrutura dos seus diretórios após as alterações feitas.
 
 ![Conferir Estrutura](img/estrutura3.png)
 
 ## 5. Configurando o Servidor Express
 
-No arquivo `src/app.ts`, adicione o código a seguir para configurar o servidor:
+Antes de configurar o servidor, você precisa conferir se existe o comando `dev` no `package.json` para rodar o servidor com o comando `npm run dev`.
+
+### Conferindo o script `dev` no `package.json`
+
+1. Abra o arquivo `package.json` no Visual Studio Code.
+2. Localize a seção `"scripts": { ... }`.
+3. Veja se existe o comando `dev`. Caso ele não esteja presente, adicione a seguinte linha dentro da seção `"scripts"`, clique ao lado do `{`, pressione Enter para ir para a linha de baixo e cole o trecho:
+
+   ```json
+     "dev": "npx nodemon src/app.ts",
+   ```
+   Após isso, a seção `"scripts"` deve ficar assim:
+
+   ```json
+   "scripts": {
+     "dev": "npx nodemon src/app.ts",
+     "test": "echo \"Error: no test specified\" && exit 1"
+   }
+   ```
+
+4. Pressione `Ctrl + S` para salvar as alterações feitas no arquivo `package.json`.
+
+Confira a imagem a seguir para ver se a estrutura do `package.json` está correta:
+
+![Conferir Código](img/codigo_packagejson.png)
+
+### Configurando o Servidor Express
+
+No arquivo `src/app.ts`, adicione o código a seguir para configurar o servidor. Depois, pressione `Ctrl + S` para salvar as alterações feitas no arquivo.
 
 ```typescript
-import express from 'express';
-import cors from 'cors';
+import express from 'express'
+import cors from 'cors'
+import { connect } from './database'
 
-const port = 3333;
-const app = express();
+const port = 3333
+const app = express()
 
-app.use(cors());
-app.use(express.json());
-app.use(express.static(__dirname + '/../public'));  // Servindo o HTML
+app.use(cors())
+app.use(express.json())
+app.use(express.static(__dirname + '/../public'))
 
-app.get('/', (req, res) => {
-  res.send('Hello World');
-});
+app.get('/users', async (req, res) => {
+  const db = await connect()
+  const users = await db.all('SELECT * FROM users')
+  res.json(users)
+})
+
+app.post('/users', async (req, res) => {
+  const db = await connect()
+  const { name, email } = req.body
+  const result = await db.run('INSERT INTO users (name, email) VALUES (?, ?)', [name, email])
+  const user = await db.get('SELECT * FROM users WHERE id = ?', [result.lastID])
+  res.json(user)
+})
+
+app.put
+
+('/users/:id', async (req, res) => {
+  const db = await connect()
+  const { name, email } = req.body
+  const { id } = req.params
+  await db.run('UPDATE users SET name = ?, email = ? WHERE id = ?', [name, email, id])
+  const user = await db.get('SELECT * FROM users WHERE id = ?', [id])
+  res.json(user)
+})
+
+app.delete('/users/:id', async (req, res) => {
+  const db = await connect()
+  const { id } = req.params
+  await db.run('DELETE FROM users WHERE id = ?', [id])
+  res.json({ message: 'User deleted' })
+})
 
 app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+  console.log(`Server running on port ${port}`)
+})
 ```
 
 ## 6. Configurando o Banco de Dados SQLite
 
-Antes de criar a conexão com o banco de dados, execute o arquivo `database.ts` após configurar o banco de dados SQLite.
-
 ### Criando o arquivo de banco de dados
 
-No arquivo `src/database.ts`, adicione o seguinte código para configurar o banco de dados SQLite:
+No arquivo `src/database.ts`, adicione o seguinte código para configurar o banco de dados SQLite (lembre-se de executar o comando `Ctrl + S` após colar o código para salvar o arquivo):
 
 ```typescript
 import { open, Database } from 'sqlite';
@@ -201,15 +257,34 @@ export async function connect() {
 }
 ```
 
-Certifique-se de que o banco de dados esteja sendo corretamente acessado ao rodar o servidor.
+## 7. Rodando o Servidor
 
-## 7. Criando a Interface HTML
+Antes de testar a interface HTML, é necessário garantir que o servidor Express esteja rodando corretamente.
+
+### Iniciando o Servidor
+
+1. Abra o terminal integrado no Visual Studio Code.
+2. Execute o seguinte comando para iniciar o servidor:
+
+   ```bash
+   npm run dev
+   ```
+
+3. Se o servidor for iniciado corretamente, você verá uma mensagem no terminal como esta:
+
+   ```
+   Server running on port 3333
+   ```
+
+Isso indica que o servidor está rodando na porta 3333, e agora você pode acessar a interface HTML no navegador.
+
+## 8. Criando a Interface HTML
 
 Vamos agora criar uma interface HTML para interagir com a API.
 
 ### Criando o arquivo HTML
 
-1. Dentro da pasta `public`, no arquivo `index.html`, adicione o seguinte código HTML:
+1. Dentro da pasta `public`, no arquivo `index.html`, adicione o seguinte código HTML (lembre-se de executar o comando `Ctrl + S` após colar o código para salvar o arquivo):
 
 ```html
 <!DOCTYPE html>
@@ -315,15 +390,21 @@ Vamos agora criar uma interface HTML para interagir com a API.
 
 ### Testando a interface HTML
 
-1. Certifique-se de que o servidor está rodando (`npm run dev`).
+1. **Certifique-se de que o servidor está rodando**:
+   - No terminal integrado do Visual Studio Code, execute o comando abaixo para iniciar o servidor:
+   ```bash
+   npm run dev
+   ```
+   Isso iniciará o servidor na porta `3333`.
 
+2. **Acesse a interface HTML no navegador**:
+   - No seu navegador, abra `http://localhost:3333` para acessar a interface HTML.
 
-2. No seu navegador, abra `http://localhost:3333` para acessar a interface.
-3. Utilize o formulário para adicionar usuários e veja os dados serem exibidos na tabela abaixo.
+3. **Interaja com a interface**:
+   - Utilize o formulário para adicionar usuários e veja os dados serem exibidos na tabela abaixo.
+   - A interface permite adicionar, editar e excluir usuários diretamente do navegador, interagindo com a API que você configurou.
 
-A interface permite adicionar, editar e excluir usuários diretamente do navegador, interagindo com a API que você configurou.
-
-## 8. Estrutura de Pastas
+## 9. Estrutura de Pastas
 
 A estrutura final de pastas do seu projeto deve ficar assim:
 
@@ -346,7 +427,7 @@ node-typescript-crud/
 
 [IMAGEM]
 
-## 9. Testando o Projeto
+## 10. Testando o Projeto
 
 ### Instalando a extensão REST Client
 
@@ -390,5 +471,66 @@ DELETE http://localhost:3333/users/1 HTTP/1.1
 [IMAGEM]
 
 Se tudo estiver configurado corretamente, você verá as respostas JSON adequadas para cada requisição.
+
+---
+
+## 11. Tratando Erros Comuns
+
+### Erro: `npm : O termo 'npm' não é reconhecido como nome de cmdlet, função, arquivo de script ou programa operável.`
+Este erro indica que o Node.js (e, portanto, o npm) não está instalado corretamente ou o caminho (PATH) para o npm não está configurado. Para resolver:
+
+1. **Verifique se o Node.js está instalado:**
+   - Abra o terminal e execute:
+     ```bash
+     node -v
+     ```
+   - Se não retornar uma versão, o Node.js não está instalado corretamente. [Baixe e instale o Node.js](https://nodejs.org/).
+
+2. **Verifique as variáveis de ambiente:**
+   - Certifique-se de que o caminho para o npm esteja incluído na variável PATH do sistema.
+
+#### Adicionando o npm ao PATH do Sistema no Windows
+
+Se o `npm` não estiver no PATH, siga os passos abaixo para adicioná-lo:
+
+1. **Abra as Variáveis de Ambiente:**
+   - No Windows, clique com o botão direito em "Este Computador" ou "Meu Computador" na área de trabalho ou no Explorador de Arquivos, e selecione **Propriedades**.
+   - Clique em **Configurações avançadas do sistema** no lado esquerdo.
+   - Na aba **Avançado**, clique em **Variáveis de Ambiente**.
+
+2. **Edite a Variável PATH:**
+   - Na seção **Variáveis de sistema**, encontre a variável chamada `Path` e clique em **Editar**.
+   - Clique em **Novo** e adicione o caminho do diretório onde o Node.js
+
+ (e o npm) está instalado. O caminho típico é:
+     ```plaintext
+     C:\Program Files\nodejs\
+     ```
+   - Certifique-se de adicionar esse caminho sem remover os outros caminhos existentes na variável `Path`.
+
+3. **Salvar e Reiniciar:**
+   - Clique em **OK** para salvar as mudanças.
+   - Reinicie o terminal ou o computador para garantir que as mudanças entrem em vigor.
+
+4. **Verifique novamente:**
+   - Abra um novo terminal e execute `npm -v` para verificar se o `npm` agora é reconhecido.
+
+### Erro: `Error: Cannot find module 'express'`
+Este erro ocorre quando você tenta executar o código, mas as dependências necessárias não foram instaladas corretamente.
+
+1. **Reinstale as dependências:**
+   - No terminal, execute:
+     ```bash
+     npm install
+     ```
+
+### Logs de Erros e Depuração
+Quando você encontrar erros, o Node.js geralmente fornece logs detalhados no terminal. Aqui estão algumas dicas para interpretar e usar esses logs:
+
+- **Stack Trace:** O erro geralmente inclui um "stack trace" que mostra onde no código o erro ocorreu. Use essa informação para identificar o arquivo e a linha de código problemáticos.
+- **Mensagens de Erro:** Leia atentamente a mensagem de erro; ela frequentemente sugere a causa do problema (exemplo: um módulo faltando, um erro de sintaxe, etc.).
+- **Google e Stack Overflow:** Copie e cole a mensagem de erro (ou parte dela) no Google ou no Stack Overflow. Muitas vezes, outras pessoas já enfrentaram problemas semelhantes e você pode encontrar uma solução rápida.
+
+Essas dicas devem ajudá-lo a resolver problemas comuns ao configurar e executar seu projeto Node.js com TypeScript.
 
 ---
