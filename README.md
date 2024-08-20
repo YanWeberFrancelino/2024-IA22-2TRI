@@ -10,8 +10,8 @@ Este guia irá ajudá-lo a configurar e executar um projeto Node.js com TypeScri
 4. [Configurando o TypeScript](#configurando-o-typescript)
 5. [Configurando o Servidor Express](#configurando-o-servidor-express)
 6. [Configurando o Banco de Dados SQLite](#configurando-o-banco-de-dados-sqlite)
-7. [Rodando o Servidor](#rodando-o-servidor)
-8. [Criando a Interface HTML](#criando-a-interface-html)
+7. [Criando a Interface HTML](#criando-a-interface-html)
+8. [Rodando o Servidor](#rodando-o-servidor)
 9. [Estrutura de Pastas](#estrutura-de-pastas)
 10. [Testando o Projeto](#testando-o-projeto)
 11. [Tratando Erros Comuns](#tratando-erros-comuns)
@@ -196,14 +196,14 @@ app.get('/users', async (req, res) => {
 app.post('/users', async (req, res) => {
   const db = await connect()
   const { name, email } = req.body
-  const result = await db.run('INSERT INTO users (name, email) VALUES (?, ?)', [name, email])
+  const result = await db.run('INSERT INTO
+
+ users (name, email) VALUES (?, ?)', [name, email])
   const user = await db.get('SELECT * FROM users WHERE id = ?', [result.lastID])
   res.json(user)
 })
 
-app.put
-
-('/users/:id', async (req, res) => {
+app.put('/users/:id', async (req, res) => {
   const db = await connect()
   const { name, email } = req.body
   const { id } = req.params
@@ -257,28 +257,7 @@ export async function connect() {
 }
 ```
 
-## 7. Rodando o Servidor
-
-Antes de testar a interface HTML, é necessário garantir que o servidor Express esteja rodando corretamente.
-
-### Iniciando o Servidor
-
-1. Abra o terminal integrado no Visual Studio Code.
-2. Execute o seguinte comando para iniciar o servidor:
-
-   ```bash
-   npm run dev
-   ```
-
-3. Se o servidor for iniciado corretamente, você verá uma mensagem no terminal como esta:
-
-   ```
-   Server running on port 3333
-   ```
-
-Isso indica que o servidor está rodando na porta 3333, e agora você pode acessar a interface HTML no navegador.
-
-## 8. Criando a Interface HTML
+## 7. Criando a Interface HTML
 
 Vamos agora criar uma interface HTML para interagir com a API.
 
@@ -388,19 +367,33 @@ Vamos agora criar uma interface HTML para interagir com a API.
 </html>
 ```
 
-### Testando a interface HTML
+## 8. Rodando o Servidor
 
-1. **Certifique-se de que o servidor está rodando**:
-   - No terminal integrado do Visual Studio Code, execute o comando abaixo para iniciar o servidor:
+Com a interface HTML pronta e o servidor configurado, é hora de rodar o servidor para testar o projeto.
+
+### Iniciando o Servidor
+
+1. Abra o terminal integrado no Visual Studio Code.
+2. Execute o seguinte comando para iniciar o servidor:
+
    ```bash
    npm run dev
    ```
-   Isso iniciará o servidor na porta `3333`.
 
-2. **Acesse a interface HTML no navegador**:
+3. Se o servidor for iniciado corretamente, você verá uma mensagem no terminal como esta:
+
+   ```
+   Server running on port 3333
+   ```
+
+Isso indica que o servidor está rodando na porta 3333, e agora você pode acessar a interface HTML no navegador.
+
+### Testando a interface HTML
+
+1. **Acesse a interface HTML no navegador**:
    - No seu navegador, abra `http://localhost:3333` para acessar a interface HTML.
 
-3. **Interaja com a interface**:
+2. **Interaja com a interface**:
    - Utilize o formulário para adicionar usuários e veja os dados serem exibidos na tabela abaixo.
    - A interface permite adicionar, editar e excluir usuários diretamente do navegador, interagindo com a API que você configurou.
 
@@ -425,7 +418,7 @@ node-typescript-crud/
 └── README.md
 ```
 
-[IMAGEM]
+**Nota:** Caso você tenha executado alguma ação no projeto, como cadastrar um usuário, será criado um arquivo `database.sqlite` dentro da pasta `src`. Esse arquivo é utilizado pelo SQLite para armazenar os dados do seu banco de dados.
 
 ## 10. Testando o Projeto
 
@@ -435,12 +428,12 @@ node-typescript-crud/
 2. Na barra de pesquisa, digite **REST Client**.
 3. Instale a extensão **REST Client** da **Huachao Mao**.
 
-[IMAGEM]
+![REST Client - API](img/rest_api.png)
 
 ### Testando as rotas
 
 1. Crie um arquivo chamado `test.http` na raiz do seu projeto.
-2. No arquivo `test.http`, adicione o seguinte código para testar as rotas de CRUD de usuários:
+2. No arquivo `test.http`, adicione o seguinte código para testar as rotas de CRUD de usuários (lembre-se de executar o comando `Ctrl + S` após colar o código para salvar o arquivo):
 
 ```http
 POST http://localhost:3333/users HTTP/1.1
@@ -468,7 +461,7 @@ DELETE http://localhost:3333/users/1 HTTP/1.1
 
 3. Para testar as rotas, clique no botão **Send Request** que aparecerá acima de cada bloco de código no Visual Studio Code.
 
-[IMAGEM]
+![REST - Request](img/request.png)
 
 Se tudo estiver configurado corretamente, você verá as respostas JSON adequadas para cada requisição.
 
@@ -502,7 +495,9 @@ Se o `npm` não estiver no PATH, siga os passos abaixo para adicioná-lo:
    - Na seção **Variáveis de sistema**, encontre a variável chamada `Path` e clique em **Editar**.
    - Clique em **Novo** e adicione o caminho do diretório onde o Node.js
 
- (e o npm) está instalado. O caminho típico é:
+ (e o npm) está instalado.
+
+ O caminho típico é:
      ```plaintext
      C:\Program Files\nodejs\
      ```
