@@ -1,20 +1,22 @@
+---
+
 # Projeto Node.js com TypeScript - CRUD de Usuários
 
-Este guia irá ajudá-lo a configurar e executar um projeto Node.js com TypeScript, criando um servidor Express com um CRUD básico de usuários utilizando um banco de dados SQLite.
+Este guia irá ajudá-lo(a) a configurar e executar um projeto Node.js com TypeScript, criando um servidor Express com um CRUD básico de usuários utilizando um banco de dados SQLite.
 
 ## Sumário
 
-1. [Pré-requisitos](#pré-requisitos)
-2. [Configurando o Ambiente de Desenvolvimento](#configurando-o-ambiente-de-desenvolvimento)
-3. [Iniciando o Projeto Node.js](#iniciando-o-projeto-nodejs)
-4. [Configurando o TypeScript](#configurando-o-typescript)
-5. [Configurando o Servidor Express](#configurando-o-servidor-express)
-6. [Configurando o Banco de Dados SQLite](#configurando-o-banco-de-dados-sqlite)
-7. [Criando a Interface HTML](#criando-a-interface-html)
-8. [Rodando o Servidor](#rodando-o-servidor)
-9. [Estrutura de Pastas](#estrutura-de-pastas)
-10. [Testando o Projeto](#testando-o-projeto)
-11. [Tratando Erros Comuns](#tratando-erros-comuns)
+1. [Pré-requisitos](#1-pré-requisitos)
+2. [Configurando o Ambiente de Desenvolvimento](#2-configurando-o-ambiente-de-desenvolvimento)
+3. [Iniciando o Projeto Node.js](#3-iniciando-o-projeto-nodejs)
+4. [Configurando o TypeScript](#4-configurando-o-typescript)
+5. [Configurando o Servidor Express](#5-configurando-o-servidor-express)
+6. [Configurando o Banco de Dados SQLite](#6-configurando-o-banco-de-dados-sqlite)
+7. [Criando a Interface HTML](#7-criando-a-interface-html)
+8. [Rodando o Servidor](#8-rodando-o-servidor)
+9. [Estrutura de Pastas](#9-estrutura-de-pastas)
+10. [Testando o Projeto](#10-testando-o-projeto)
+11. [Tratando Erros Comuns](#11-tratando-erros-comuns)
 
 ---
 
@@ -195,7 +197,9 @@ app.get('/users', async (req, res) => {
   res.json(users)
 })
 
-app.post('/users', async (req, res) => {
+app.post('/users', async (req, res)
+
+ => {
   console.log('POST /users request received:', req.body);
   const db = await connect()
   const { name, email } = req.body
@@ -493,7 +497,9 @@ Se tudo estiver configurado corretamente, você verá as respostas JSON adequada
      ```bash
      node -v
      ```
-   - Se não retornar uma versão, o Node.js não está instalado corretamente. [Baixe e instale o Node.js](https://nodejs.org/).
+   - Se não retornar uma versão, o Node.js não está instalado
+
+ corretamente. [Baixe e instale o Node.js](https://nodejs.org/).
 
 2. **Verifique as variáveis de ambiente**:
    - Certifique-se de que o caminho para o npm esteja incluído na variável PATH do sistema.
